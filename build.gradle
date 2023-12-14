@@ -1,0 +1,59 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.20'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.9.20'
+
+    // Gradle plugin for Node
+    id 'com.github.node-gradle.node' version '7.0.1'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '21'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.0'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+}
+
+// Necessary for node-gradle plugin
+node {
+    download = true
+}
+
+// This task will run `tailwindcss` command and generate the output.css file from styles.css
+tasks.register('tailwind', NpxTask) {
+    command = 'tailwindcss'
+    args = ['-i', './src/main/resources/static/styles.css', '-o', './src/main/resources/static/output.css']
+
+    // This task depends on npmInstall task
+    dependsOn(tasks.npmInstall)
+}
+
+// Make npmInstall task depend on npmSetup task and adds package.json as input
+tasks.npmInstall {
+    inputs.file('package.json')
+    dependsOn(tasks.npmSetup)
+}
+
+tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+        freeCompilerArgs += '-Xjsr305=strict'
+        jvmTarget = '21'
+    }
+
+    // Update the output.css file every time after compiling Kotlin code
+    dependsOn(tasks.tailwind)
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link href="/output.css"
+          rel="stylesheet">
+</head>
+<body>
+<h1 class="headline"
+    th:text="#{index}">Index</h1>
+<nav class="flex flex-col sm:flex-row gap-1">
+    <a class="btn btn-blue"
+       th:each="endpoint: ${endpoints}"
+       th:text="#{navigate(${endpoint})}"
+       th:href="@{/{endpoint}(endpoint=${endpoint})}">Endpoint</a>
+</nav>
+</body>
+</html>
