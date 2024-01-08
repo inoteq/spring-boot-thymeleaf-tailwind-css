@@ -8,11 +8,11 @@
 </head>
 <body>
 <h1 class="headline"
-    th:text="#{index}">Index</h1>
+    th:text="#{myIndexText}">Index</h1>
 <nav class="flex flex-col sm:flex-row gap-1">
     <a class="btn btn-blue"
        th:each="endpoint: ${endpoints}"
-       th:text="#{navigate(${endpoint})}"
+       th:text="#{myNavigateText(${endpoint})}"
        th:href="@{/{endpoint}(endpoint=${endpoint})}">Endpoint</a>
 </nav>
 </body>
