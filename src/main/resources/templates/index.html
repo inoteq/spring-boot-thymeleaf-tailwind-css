@@ -8,12 +8,12 @@
 </head>
 <body>
 <h1 class="headline"
-    th:text="#{myIndexText}">Index</h1>
+    th:text="#{myIndexText}">Necessary for valid HTML, will be removed by Thymeleaf</h1>
 <nav class="flex flex-col sm:flex-row gap-1">
     <a class="btn btn-blue"
-       th:each="endpoint: ${endpoints}"
+       th:each="endpoint: ${myEndpoints}"
        th:text="#{myNavigateText(${endpoint})}"
-       th:href="@{/{endpoint}(endpoint=${endpoint})}">Endpoint</a>
+       th:href="@{/{endpoint}(endpoint=${endpoint})}">Necessary for valid HTML, will be removed by Thymeleaf</a>
 </nav>
 </body>
 </html>

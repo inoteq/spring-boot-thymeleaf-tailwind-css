@@ -10,23 +10,23 @@ import org.springframework.web.servlet.ModelAndView
 @RequestMapping
 class DemoController {
     // Using Model from org.springframework.ui.Model
-    @GetMapping("/")
-    fun index(model: Model): String {
-        model.addAttribute("endpoints", listOf("foo", "bar", "baz"))
+    @GetMapping("/", "/modelEndpoint")
+    fun myIndexEndpointWithModel(model: Model): String {
+        model.addAttribute("myEndpoints", listOf("foo", "bar", "baz"))
         return "index"
     }
 
     // Using ModelAndView from org.springframework.web.servlet.ModelAndView
-    @GetMapping("/index")
-    fun index(): ModelAndView = ModelAndView("index")
-        .addObject("endpoints", listOf("foo", "bar", "baz"))
+    @GetMapping("/modelAndViewEndpoint")
+    fun myIndexEndpointWithModelAndView(): ModelAndView = ModelAndView("index")
+        .addObject("myEndpoints", listOf("foo", "bar", "baz"))
 
     @GetMapping("/foo")
-    fun foo(): String = "foo"
+    fun fooEndpoint(): String = "foo"
 
     @GetMapping("/bar")
-    fun bar(): String = "bar"
+    fun barEndpoint(): String = "bar"
 
     @GetMapping("/baz")
-    fun baz(): String = "baz"
+    fun bazEndpoint(): String = "baz"
 }
